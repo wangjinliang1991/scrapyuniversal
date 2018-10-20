@@ -1,0 +1,79 @@
+{
+  "spider": "universal",
+  "website": "中华网科技",
+  "type": "新闻",
+  "index": "http://tech.china.com/",
+  "settings": {
+    "USER_AGENT": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36"
+  },
+  "start_urls": {
+    "type": "dynamic",
+    "method": "china",
+    "args": [
+      5, 10
+    ]
+  },
+
+  "allowed_domains": [
+    "tech.china.com"
+  ],
+  "rules": "china",
+  "item": {
+    "class": "NewsItem",
+    "loader": "ChinaLoader",
+    "attrs": {
+      "title": [
+        {
+          "method": "xpath",
+          "args": [
+            "//h1[@id='chan_newsTitle']/text()"
+          ]
+        }
+      ],
+      "url": [
+        {
+          "method": "attr",
+          "args": [
+            "url"
+          ]
+        }
+      ],
+      "text": [
+        {
+          "method": "xpath",
+          "args": [
+            "//div[@id='chan_newsDetail']//text()"
+          ]
+        }
+      ],
+      "datetime": [
+        {
+          "method": "xpath",
+          "args": [
+            "//div[@id='chan_newsInfo']/text()"
+          ],
+          "re": "(\\d+-\\d+-\\d+\\s\\d+:\\d+:\\d+)"
+        }
+      ],
+      "source": [
+        {
+          "method": "xpath",
+          "args": [
+          "//div[@id='chan_newsInfo']/text()"
+        ]
+        }
+      ],
+      "website":[
+        {
+          "method": "value",
+          "args": [
+            "中华网"
+          ]
+        }
+      ]
+    }
+  }
+}
+//将spider的属性抽离出来配置成JSON，第一个字段spider即Spider的名称，后面是站点的描述，站点名称、类型、首页等，随后的settings是该视频的天特有的settings配置
+//随后是Spider的一些属性，start_url,allowed_domains,rules等
+
